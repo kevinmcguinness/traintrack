@@ -11,6 +11,7 @@ from shutil import get_terminal_size
 class Epoch(api.Epoch):
     def __init__(self, experiment, epoch):
         super().__init__(experiment, epoch)
+        self.progress_bar = None
 
     def begin(self):
         if self.progress_bar is not None:
