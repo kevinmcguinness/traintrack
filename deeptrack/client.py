@@ -34,6 +34,12 @@ class ExperimentTracker(object):
             self.experiment_id, self.epoch, **self.rpc_kwargs)
         return self
 
+    def progress(self, completed, total, info=None):
+        self.client.progress(
+            self.experiment_id, self.epoch, completed, total, info,
+            **self.rpc_kwargs)
+        return self
+
     def log(self, text, level=None):
         if level is None:
             level = self.default_log_level

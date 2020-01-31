@@ -11,6 +11,9 @@ class Epoch(object):
     def begin(self):
         pass
 
+    def progress(self, completed, total, info):
+        pass
+
     def metric(self, name, value):
         pass
 

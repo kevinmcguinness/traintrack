@@ -16,6 +16,8 @@ from deeptrack.services.tensorboard import TensorboardTracker
 from deeptrack.services.sqlite import SqliteTracker
 from deeptrack.services.console import ConsoleTracker
 from deeptrack.services.slack import SlackTracker
+from deeptrack.services.logfile import LogfileTracker
+from deeptrack.services.progress import ProgressTracker
 
 
 arg = click.argument
@@ -26,7 +28,9 @@ available_services = {
     'debug': DebugTracker,
     'tensorboard': TensorboardTracker,
     'sqlite': SqliteTracker,
-    'console': ConsoleTracker
+    'console': ConsoleTracker,
+    'slack': SlackTracker,
+    'logfile': LogfileTracker
 }
 
 
@@ -35,8 +39,10 @@ available_services = {
 @opt('--host', default='0.0.0.0')
 def main(host, port):
     server = TrackerServer()
+    server.register_tracker(ProgressTracker())
     server.register_tracker(ConsoleTracker())
     server.register_tracker(SlackTracker(channel='#nn_training'))
+    # server.register_tracker(LogfileTracker('logs'))
     # server.register_tracker(TensorboardTracker())
     # server.register_tracker(SqliteTracker('tmp.sqlite'))
 
