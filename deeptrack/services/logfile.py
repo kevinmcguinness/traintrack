@@ -28,7 +28,7 @@ class Experiment(api.Experiment):
 
     def __init__(self, tracker, name):
         super().__init__(tracker, name)
-        self.filename = tracker.logdir / name + tracker.suffix
+        self.filename = tracker.logdir / (name + tracker.suffix)
         self.file = open(self.filename, 'w')
 
     def description(self, text):
@@ -38,7 +38,6 @@ class Experiment(api.Experiment):
         self.log('INFO', f'param {name}: {value}')
 
     def log(self, level, text):
-        self.tracker.log(level, text)
         ts = timestamp()
         print(f'[{ts}] {level} - {text}', file=self.file, flush=True)
 
