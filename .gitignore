@@ -112,3 +112,4 @@ dmypy.json
 test1.py
 tmp.sqlite
 runs/*
+logs/*
