@@ -1,3 +1,38 @@
-# deeptrack
+# TrainTrack
 
-Monitor and track deep learning experiments
+Monitor and track metrics and progress when training deep learning models.
+
+## Usage
+
+Start the experiment tracker service:
+
+```bash
+$ python experiment_tracker.py --config <config.yaml>
+```
+
+You can configure the tracker service using the `config.yaml` file. See the `config.yaml` in the repository for an example of how this file should look. If you start the experiment tracker without specifying a config file, by default it will add the *console* and *progress* trackers.
+
+Communicate with the tracker from your training code using something similar to the following::
+
+```python
+from deeptrack.client import ExperimentTracker
+
+tracker = ExperimentTracker()
+
+for epoch in range(1, 11):
+    tracker.begin_epoch(epoch)
+
+    for i, batch in enumerate(batches):
+
+        # train on a batch
+        # ...
+
+        tracker.progress(i+1, n_batches)
+    
+    # report metrics for the epoch
+    tracker.metric('loss/train', loss_train)
+    tracker.metric('loss/valid', loss_valid)
+    tracker.metric('acc/valid', acc_valid)
+
+    tracker.end_epoch()
+```
