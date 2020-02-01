@@ -1,4 +1,5 @@
 import time
+import numpy as np
 
 from PIL import Image
 from io import BytesIO
@@ -50,8 +51,8 @@ def numpy_image_to_pil_image(image, pixel_order=None):
     raise ValueError(f'invalid dimension: {ndim}')
 
 
-def encode_numpy_image(image):
-    image = numpy_image_to_pil_image(image)
+def encode_numpy_image(image, pixel_order=None):
+    image = numpy_image_to_pil_image(image, pixel_order)
     return encode_pil_image(image)
 
 
