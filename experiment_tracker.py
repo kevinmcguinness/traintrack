@@ -11,27 +11,11 @@ import time
 from PIL import Image
 
 from deeptrack.server import TrackerServer
-from deeptrack.services.debug import DebugTracker
-from deeptrack.services.tensorboard import TensorboardTracker
-from deeptrack.services.sqlite import SqliteTracker
-from deeptrack.services.console import ConsoleTracker
-from deeptrack.services.slack import SlackTracker
-from deeptrack.services.logfile import LogfileTracker
-from deeptrack.services.progress import ProgressTracker
+from deeptrack.services import create_tracker, default_trackers
 
 
 arg = click.argument
 opt = click.option
-
-
-available_services = {
-    'debug': DebugTracker,
-    'tensorboard': TensorboardTracker,
-    'sqlite': SqliteTracker,
-    'console': ConsoleTracker,
-    'slack': SlackTracker,
-    'logfile': LogfileTracker
-}
 
 
 @click.command()
@@ -39,15 +23,12 @@ available_services = {
 @opt('--host', default='0.0.0.0')
 def main(host, port):
     server = TrackerServer()
-    server.register_tracker(ProgressTracker())
-    server.register_tracker(ConsoleTracker())
-    server.register_tracker(SlackTracker(channel='#nn_training'))
-    # server.register_tracker(LogfileTracker('logs'))
-    # server.register_tracker(TensorboardTracker())
-    # server.register_tracker(SqliteTracker('tmp.sqlite'))
-
+    for tracker_name in default_trackers:
+        tracker = create_tracker(tracker_name)
+        print(tracker_name, tracker)
+        server.register_tracker(tracker)
     server.run(host, port)
 
 
 if __name__ == '__main__':
-    main()
+    main()  # pylint: disable=no-value-for-parameter
