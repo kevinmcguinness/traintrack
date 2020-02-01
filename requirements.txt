@@ -4,3 +4,4 @@ numpy
 Pillow
 click
 slackclient
+loguru

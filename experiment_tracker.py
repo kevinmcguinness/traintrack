@@ -7,27 +7,59 @@ from __future__ import division
 import click
 import zerorpc
 import time
+import yaml
 
+from loguru import logger as log
 from PIL import Image
-
 from deeptrack.server import TrackerServer
-from deeptrack.services import create_tracker, default_trackers
+from deeptrack.services import create_tracker
 
 
 arg = click.argument
 opt = click.option
 
 
+default_config = {
+    'host': '0.0.0.0',
+    'port': 4242,
+    'trackers': [
+        {'type': 'progress'},
+        {'type': 'console'}
+    ]
+}
+
+
 @click.command()
-@opt('--port', default=4242)
-@opt('--host', default='0.0.0.0')
-def main(host, port):
+@opt('--config', 'configfile', default=None)
+@opt('--port', default=None)
+@opt('--host', default=None)
+def main(host, port, configfile):
     server = TrackerServer()
-    for tracker_name in default_trackers:
-        tracker = create_tracker(tracker_name)
-        print(tracker_name, tracker)
+
+    config = default_config
+    if configfile:
+        with open(configfile, 'r') as f:
+            config = yaml.safe_load(f)
+
+    # allow override host
+    if host:
+        config['host'] = host
+
+    # allow override port 
+    if port:
+        config['port'] = port
+    
+    # add trackers
+    for tracker_cfg in config['trackers']:
+        tracker_name = tracker_cfg['type']
+        tracker_kwargs = tracker_cfg.get('config', {})
+        log.info(f'Adding tracker: {tracker_name} {tracker_kwargs}')
+        tracker = create_tracker(tracker_name, **tracker_kwargs)
         server.register_tracker(tracker)
-    server.run(host, port)
+
+    # run
+    log.info(f'Starting RPC service on {config["host"]}:{config["port"]}')
+    server.run(config['host'], config['port'])
 
 
 if __name__ == '__main__':

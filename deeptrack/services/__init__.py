@@ -17,8 +17,6 @@ trackers = {
     'progress': ProgressTracker
 }
 
-default_trackers = ['console', 'progress']
-
 
 def available_trackers():
     return list(trackers.keys())
