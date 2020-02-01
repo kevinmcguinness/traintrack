@@ -1,0 +1,6 @@
+zerorpc
+pytorch>=1.1.0
+numpy
+Pillow
+click
+slackclient
