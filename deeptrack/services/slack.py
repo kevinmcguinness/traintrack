@@ -68,9 +68,11 @@ class SlackTracker(api.ExperimentTracker):
 
     def __init__(self, token=None, channel=None):
         super().__init__()
-        token = os.environ['SLACK_API_TOKEN']
-        if token is None:
-            raise OSError('Set SLACK_API_TOKEN environment variable')
+        if not token:
+            # try get token from environment
+            token = os.environ.get('SLACK_API_TOKEN', None)
+            if token is None:
+                raise OSError('Set SLACK_API_TOKEN environment variable')
         self.client = slack.WebClient(token=token)
         self.channel = channel
 
