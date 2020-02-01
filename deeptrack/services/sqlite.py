@@ -42,10 +42,10 @@ class Experiment(api.Experiment):
 class SqliteTracker(api.ExperimentTracker):
     experiment_type = Experiment
 
-    def __init__(self, database, **kwargs):
+    def __init__(self, database='db.sqlite', **kwargs):
         super().__init__()
         self.database = database
-        self.connection = sqlite3.connect(database, **kwargs)
+        self.connection = sqlite3.connect(database, **kwargs)  # pylint: disable=no-member
         create_schema(self.connection)
 
 
