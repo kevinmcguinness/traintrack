@@ -14,13 +14,13 @@ class Epoch(api.Epoch):
         return self.experiment.log
 
     def begin(self):
-        self.log('INFO', f'starting epoch [{self.epoch}]')
+        self.log('INFO', f'starting epoch [{self.epoch}]')  # pylint: disable=not-callable
 
     def metric(self, name, value):
-        self.log('INFO', f'[{self.epoch}] metric {name}: {value}')
+        self.log('INFO', f'[{self.epoch}] metric {name}: {value}')  # pylint: disable=not-callable
 
     def end(self):
-        self.log('INFO', f'ending epoch [{self.epoch}]')
+        self.log('INFO', f'ending epoch [{self.epoch}]')  # pylint: disable=not-callable
 
 
 class Experiment(api.Experiment):

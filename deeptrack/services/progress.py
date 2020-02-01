@@ -53,7 +53,7 @@ class ProgressBar(object):
         if completed > total:
             completed = total
         proportion = completed / total
-        w, h = get_terminal_size()
+        w, _ = get_terminal_size()
         remainder = w - len(prefix) - len(suffix)
         num_blocks = int(remainder * proportion)
         num_spaces = remainder - num_blocks
