@@ -3,7 +3,7 @@
 # (c) Copyright 2020 Kevin McGuinness. All Rights Reserved
 import time
 
-from deeptrack.client import ExperimentTracker
+from traintrack.client import ExperimentTracker
 
 
 def main():

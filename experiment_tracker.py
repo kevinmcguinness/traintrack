@@ -11,8 +11,8 @@ import yaml
 
 from loguru import logger as log
 from PIL import Image
-from deeptrack.server import TrackerServer
-from deeptrack.services import create_tracker
+from traintrack.server import TrackerServer
+from traintrack.services import create_tracker
 
 
 arg = click.argument

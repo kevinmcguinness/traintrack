@@ -15,7 +15,7 @@ You can configure the tracker service using the `config.yaml` file. See the `con
 Communicate with the tracker from your training code using something similar to the following::
 
 ```python
-from deeptrack.client import ExperimentTracker
+from traintrack.client import ExperimentTracker
 
 tracker = ExperimentTracker()
 
