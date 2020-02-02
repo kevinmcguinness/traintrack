@@ -36,3 +36,31 @@ for epoch in range(1, 11):
 
     tracker.end_epoch()
 ```
+
+## Available trackers
+
+
+### console
+
+Print metrics to the console at the end of each epoch.
+
+### progress
+
+Show a console based progress bar that can be use to track, for example, how many batches have been processed in this epoch.
+
+### tensorboard
+
+Monitor experiment progress, metrics, images, etc., using tensorboard (uses `pytorch.utils.tensorboard`).
+
+### logfile
+
+Write messages and metrics to a plain text log file.
+
+### slack
+
+Send log messages and metrics to a slack channel.
+
+### sqlite
+
+Save metrics and hyperparameters to a sqlite database.
+
