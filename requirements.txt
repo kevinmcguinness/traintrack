@@ -5,3 +5,4 @@ Pillow
 click
 slackclient
 loguru
+pyyaml

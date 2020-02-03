@@ -9,7 +9,7 @@ from setuptools import find_packages, setup
 
 # Package meta-data.
 NAME = 'TrainTrack'
-DESCRIPTION = 'Monitor and track metrics and progress when training deep learning models.'
+DESCRIPTION = 'Track metrics and progress when training deep learning models.'
 URL = 'https://github.com/kevinmcguinness/traintrack'
 EMAIL = 'kevin.mcguinness@gmail.com'
 AUTHOR = 'Kevin McGuinness'
@@ -23,7 +23,8 @@ REQUIRED = [
     'Pillow',
     'click',
     'slackclient',
-    'loguru'
+    'loguru',
+    'pyyaml'
 ]
 
 
@@ -32,6 +33,8 @@ here = os.path.abspath(os.path.dirname(__file__))
 with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = '\n' + f.read()
 
+
+PACKAGES = find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"])
 
 setup(
     name=NAME,
@@ -43,7 +46,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    packages=PACKAGES,
     install_requires=REQUIRED,
     extras_require={},
     include_package_data=True,
