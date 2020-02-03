@@ -45,10 +45,10 @@ def main(host, port, configfile):
     if host:
         config['host'] = host
 
-    # allow override port 
+    # allow override port
     if port:
         config['port'] = port
-    
+
     # add trackers
     for tracker_cfg in config['trackers']:
         tracker_name = tracker_cfg['type']

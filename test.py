@@ -17,7 +17,7 @@ def main():
         tracker.begin_epoch(epoch)
 
         for i in range(100):
-            tracker.progress(i+1,100)
+            tracker.progress(i+1, 100)
             time.sleep(0.1)
 
         tracker.metric('loss/train', loss_train)
