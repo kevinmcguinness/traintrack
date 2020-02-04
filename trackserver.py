@@ -30,10 +30,13 @@ default_config = {
 
 
 @click.command()
-@opt('--config', 'configfile', default=None)
-@opt('--port', default=None)
-@opt('--host', default=None)
+@opt('--config', 'configfile', default=None, help='YAML configuration file')
+@opt('--port', default=None, default='TCP port number')
+@opt('--host', default=None, default='Hostname to run on')
 def main(host, port, configfile):
+    """
+    Experiment tracking ZeroRPC server.
+    """
     server = TrackerServer()
 
     config = default_config
