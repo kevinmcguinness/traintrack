@@ -2,12 +2,20 @@
 
 Monitor and track metrics and progress when training deep learning models.
 
+## Installation
+
+```bash
+$ pip install https://github.com/kevinmcguinness/traintrack
+```
+
+This will install the `traintrack` package and the `trackserver` command line tool.
+
 ## Usage
 
 Start the experiment tracker service:
 
 ```bash
-$ python trackserver.py --config <config.yaml>
+$ trackserver --config <config.yaml>
 ```
 
 You can configure the tracker service using the `config.yaml` file. See the `config.yaml` in the repository for an example of how this file should look. If you start the experiment tracker without specifying a config file, by default it will add the *console* and *progress* trackers.
