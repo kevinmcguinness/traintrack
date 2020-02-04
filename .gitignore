@@ -114,3 +114,4 @@ test1.py
 runs/*
 logs/*
 .vscode
+venv

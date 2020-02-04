@@ -18,15 +18,19 @@ VERSION = '0.1.0'
 
 REQUIRED = [
     'zerorpc',
-    'pytorch>=1.1.0',
+    'torch',
     'numpy',
     'Pillow',
-    'click',
+    'Click',
     'slackclient',
     'loguru',
     'pyyaml'
 ]
 
+ENTRY_POINTS = """
+[console_scripts]
+trackserver=trackserver:main
+"""
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -35,6 +39,7 @@ with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
 
 
 PACKAGES = find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"])
+print(PACKAGES)
 
 setup(
     name=NAME,
@@ -47,6 +52,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=PACKAGES,
+    py_modules=['trackserver'],
     install_requires=REQUIRED,
     extras_require={},
     include_package_data=True,
@@ -62,4 +68,5 @@ setup(
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
+    entry_points=ENTRY_POINTS
 )

@@ -7,7 +7,7 @@ Monitor and track metrics and progress when training deep learning models.
 Start the experiment tracker service:
 
 ```bash
-$ python experiment_tracker.py --config <config.yaml>
+$ python trackserver.py --config <config.yaml>
 ```
 
 You can configure the tracker service using the `config.yaml` file. See the `config.yaml` in the repository for an example of how this file should look. If you start the experiment tracker without specifying a config file, by default it will add the *console* and *progress* trackers.
@@ -28,7 +28,7 @@ for epoch in range(1, 11):
         # ...
 
         tracker.progress(i+1, n_batches)
-    
+
     # report metrics for the epoch
     tracker.metric('loss/train', loss_train)
     tracker.metric('loss/valid', loss_valid)
