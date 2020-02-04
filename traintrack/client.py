@@ -13,6 +13,10 @@ class ExperimentTracker(object):
     r"""
     Experiment tracker client.
 
+    The experiment tracker client is used to communicate with a trackserver
+    over ZeroRPC to report experiment configuration, metrics, and progress.
+    The server then sends this information to configured backend services.
+
     Args:
         experiment_id (str, optional): identifier for the current experiment
             that will be tracked. This is used by the server to uniquely
@@ -28,7 +32,7 @@ class ExperimentTracker(object):
             for resuming stopped experiments. Default: ``1``
         default_log_level (str, optional): default logging level when none is
             specified in calls to ``log``. Default: ``'INFO'``
-        async_ (bool, optional): whether to send messages to the server
+        async\_ (bool, optional): whether to send messages to the server
             asynchronously. If enabled, method calls will return immediately
             without waiting on a response from the server. This can be enabled
             if you are worried about communication with the server slowing down
@@ -52,8 +56,8 @@ class ExperimentTracker(object):
 
         Args:
             epoch (int, optional): if specified the given epoch will be sent to
-            the server. Otherwise the last epoch will be incremented and sent
-            to the server.
+                the server. Otherwise the last epoch will be incremented and
+                sent to the server.
         """
         if epoch is not None:
             self.epoch = epoch
@@ -77,7 +81,9 @@ class ExperimentTracker(object):
 
         Args:
             completed (int): number of items (e.g. batches) completed.
+
             total (int): number of items (e.g. batches) in total.
+
             info (str, optional): extra information to be shown.
         """
         self.client.progress(
@@ -91,8 +97,9 @@ class ExperimentTracker(object):
 
         Args:
             test (str): the text to log.
+
             level (str, optional): the log level. If unspecified, defaults to
-                `self.default_log_level`.
+                ``self.default_log_level``.
         """
         if level is None:
             level = self.default_log_level
@@ -156,6 +163,7 @@ class ExperimentTracker(object):
 
         Args:
             name (str): name of the parameter (e.g. ``'lr'``).
+
             value: value of the parameter being used in the experiment.
         """
         self.client.parameter(
@@ -178,6 +186,7 @@ class ExperimentTracker(object):
 
         Args:
             name (str): name of the metric (e.g. ``'loss/train'``).
+
             value (float): the value of the metric
         """
         self.client.metric(
@@ -192,12 +201,14 @@ class ExperimentTracker(object):
 
         Args:
             name (str): name of the image (e.g. ``'filters'``).
-            image (np.ndarray or PIL.Image): the image to report
-            pixel_order (str, optional): the order of the pixels in the
-                np.ndarray. Can be ``'CHW'`` for channels, height, width, or
-                ``'HHC'`` for height, width, channels. By default, the
-                image encoding algorithm will attempt to guess based on the
-                dimensions of the ndarray.
+
+            image (np.ndarray or PIL.Image): the image to report.
+
+            pixel_order (str, optional): the order of the pixels in
+                the ``ndarray``. Can be ``'CHW'`` for channels, height,
+                width, or ``'HHC'`` for height, width, channels. By default,
+                the image encoding algorithm will attempt to guess based on the
+                dimensions of the ``ndarray``.
         """
         image = encode_image(image, pixel_order)
         self.client.image(
