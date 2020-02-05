@@ -3,12 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to TrainTrack's documentation!
-======================================
+TrainTrack documentation
+========================
+
+
+.. include:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :name: Experiment tracker client documentation
+   :caption: Experiment tracker client documentation
+
+   client
 
 
 
