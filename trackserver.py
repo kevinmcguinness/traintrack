@@ -12,7 +12,7 @@ import yaml
 from loguru import logger as log
 from PIL import Image
 from traintrack.server import TrackerServer
-from traintrack.services import create_tracker
+from traintrack.services import add_trackers_from_config
 
 
 arg = click.argument
@@ -53,12 +53,7 @@ def main(host, port, configfile):
         config['port'] = port
 
     # add trackers
-    for tracker_cfg in config['trackers']:
-        tracker_name = tracker_cfg['type']
-        tracker_kwargs = tracker_cfg.get('config', {})
-        log.info(f'Adding tracker: {tracker_name} {tracker_kwargs}')
-        tracker = create_tracker(tracker_name, **tracker_kwargs)
-        server.register_tracker(tracker)
+    add_trackers_from_config(server, config, log)
 
     # run
     log.info(f'Starting RPC service on {config["host"]}:{config["port"]}')
