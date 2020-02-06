@@ -5,6 +5,7 @@ from .console import ConsoleTracker
 from .slack import SlackTracker
 from .logfile import LogfileTracker
 from .progress import ProgressTracker
+from importlib import import_module
 
 
 trackers = {
@@ -27,5 +28,11 @@ def install_tracker(name, constructor):
 
 
 def create_tracker(name, **kwargs):
-    tracker = trackers[name]
+    if name == 'custom':
+        modulename = kwargs.pop('modulename')
+        classname = kwargs.pop('classname')
+        tracker_module = import_module(modulename)
+        tracker = getattr(tracker_module, classname)
+    else:
+        tracker = trackers[name]
     return tracker(**kwargs)

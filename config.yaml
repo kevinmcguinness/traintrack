@@ -13,13 +13,13 @@ trackers:
       suffix: .log
 
   - type: tensorboard
-    config: 
+    config:
       log_dir: ''
       comment: ''
       max_queue: 10
       flush_secs: 120
       filename_suffix: ''
-    
+
   - type: slack
     config:
       token: 'xxx'
