@@ -37,11 +37,11 @@ def numpy_image_to_pil_image(image, pixel_order=None):
 
     # RGB image
     elif ndim == 3:
-
         # if 3/4 channels in first dimension, assume CHW
         if (pixel_order == 'CHW' or
                 (pixel_order is None and shape[0] in (3, 4))):
             image = image.transpose(1, 2, 0)
+            shape = image.shape
 
         if shape[2] not in (3, 4):
             raise ValueError(f'invalid number of channels: {shape[2]}')
