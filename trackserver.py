@@ -13,6 +13,7 @@ from loguru import logger as log
 from PIL import Image
 from traintrack.server import TrackerServer
 from traintrack.services import add_trackers_from_config
+from traintrack.services.debug import DebugTracker
 
 
 arg = click.argument
@@ -33,7 +34,8 @@ default_config = {
 @opt('--config', 'configfile', default=None, help='YAML configuration file')
 @opt('--port', default=None, help='TCP port number')
 @opt('--host', default=None, help='Hostname to run on')
-def main(host, port, configfile):
+@opt('--debug/--no-debug', default=False, help='Only use the debug tracker')
+def main(host, port, configfile, debug):
     """
     Experiment tracking ZeroRPC server.
     """
@@ -53,7 +55,10 @@ def main(host, port, configfile):
         config['port'] = port
 
     # add trackers
-    add_trackers_from_config(server, config, log)
+    if debug:
+        server.register_tracker(DebugTracker())
+    else:
+        add_trackers_from_config(server, config, log)
 
     # run
     log.info(f'Starting RPC service on {config["host"]}:{config["port"]}')

@@ -36,3 +36,13 @@ def create_tracker(name, **kwargs):
     else:
         tracker = trackers[name]
     return tracker(**kwargs)
+
+
+def add_trackers_from_config(server, config, log=None):
+    for tracker_cfg in config['trackers']:
+        tracker_name = tracker_cfg['type']
+        tracker_kwargs = tracker_cfg.get('config', {})
+        if log:
+            log.info(f'Adding tracker: {tracker_name} {tracker_kwargs}')
+        tracker = create_tracker(tracker_name, **tracker_kwargs)
+        server.register_tracker(tracker)
