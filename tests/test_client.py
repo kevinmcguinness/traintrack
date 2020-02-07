@@ -1,4 +1,5 @@
-
+# -*- coding: utf-8 -*-
+# (c) Copyright 2020 Kevin McGuinness. All Rights Reserved
 from traintrack.client import ExperimentTracker
 from traintrack.server import TrackerServer
 
