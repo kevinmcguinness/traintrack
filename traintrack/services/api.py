@@ -3,16 +3,45 @@
 from collections import defaultdict
 
 
-class Epoch(object):
-    def __init__(self, experiment, epoch):
-        self.experiment = experiment
+class Task(object):
+    def __init__(self, epoch, name=None):
         self.epoch = epoch
+        self.name = name
 
     def begin(self):
         pass
 
     def progress(self, completed, total, info):
         pass
+
+    def end(self):
+        pass
+
+
+class Epoch(object):
+    task_type = Task
+
+    def __init__(self, experiment, epoch):
+        self.experiment = experiment
+        self.epoch = epoch
+        self.task = None
+
+    def begin(self):
+        pass
+
+    def begin_task(self, name=None):
+        self.task = self.task_type(self, name)
+        self.task.begin()
+        return self.task
+
+    def progress(self, completed, total, info):
+        if self.task is None:
+            self.begin_task()
+        self.task.progress(completed, total, info)
+
+    def end_task(self):
+        self.task.end()
+        self.task = None
 
     def metric(self, name, value):
         pass
@@ -21,7 +50,9 @@ class Epoch(object):
         pass
 
     def end(self):
-        pass
+        if self.task is not None:
+            self.task.end()
+            self.task = None
 
 
 class Experiment(object):

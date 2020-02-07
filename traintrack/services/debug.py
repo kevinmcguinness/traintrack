@@ -14,9 +14,15 @@ class Epoch(api.Epoch):
         print(f'[{self.experiment.name}] [{self.epoch}] '
               f'metric {name}: {value}')
 
+    def begin_task(self, name):
+        print(f'[{self.experiment.name}] begin task: {name}')
+
     def progress(self, completed, total, info):
         info = info or ''
         print(f'[{self.experiment.name}] progress {completed}/{total}  {info}')
+
+    def end_task(self):
+        print(f'[{self.experiment.name}] end task')
 
     def image(self, name, image):
         print(f'[{self.experiment.name}] [{self.epoch}] image {name}')

@@ -42,6 +42,14 @@ class TrackerService(object):
         for tracker in self.trackers:
             tracker.experiment(id).epoch(epoch).begin()
 
+    def begin_task(self, id, epoch, name):
+        for tracker in self.trackers:
+            tracker.experiment(id).epoch(epoch).begin_task(name)
+
+    def end_task(self, id, epoch):
+        for tracker in self.trackers:
+            tracker.experiment(id).epoch(epoch).end_task()
+
     def progress(self, id, epoch, completed, total, info):
         for tracker in self.trackers:
             tracker.experiment(id).epoch(epoch).progress(

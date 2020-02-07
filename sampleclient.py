@@ -13,14 +13,23 @@ def main():
     loss_valid = 7.541
     acc_valid = 0.4
 
-    for epoch in range(1, 11):
+    for epoch in range(1, 3):
         tracker.begin_epoch(epoch)
 
+        # train
+        tracker.begin_task('train')
         for i in range(100):
             tracker.progress(i+1, 100)
-            time.sleep(0.1)
-
+            time.sleep(0.025)
+        tracker.end_task()
         tracker.metric('loss/train', loss_train)
+
+        # validate
+        tracker.begin_task('validate')
+        for i in range(5):
+            tracker.progress(i+1, 5)
+            time.sleep(0.1)
+        tracker.end_task()
         tracker.metric('loss/valid', loss_valid)
         tracker.metric('acc/valid', acc_valid)
 

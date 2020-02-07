@@ -75,6 +75,25 @@ class ExperimentTracker(object):
             self.experiment_id, self.epoch, **self.rpc_kwargs)
         return self
 
+    def begin_task(self, name=None):
+        """
+        Start a new subtask (e.g. train, validation, etc).
+
+        Args:
+            name (str, optional): task name.
+        """
+        self.client.begin_task(
+            self.experiment_id, self.epoch, name, **self.rpc_kwargs)
+        return self
+
+    def end_task(self):
+        """
+        End current subtask.
+        """
+        self.client.end_task(
+            self.experiment_id, self.epoch, **self.rpc_kwargs)
+        return self
+
     def progress(self, completed, total, info=None):
         """
         Report progress on the current epoch.

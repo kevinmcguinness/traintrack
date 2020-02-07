@@ -8,21 +8,21 @@ from click import echo
 from shutil import get_terminal_size
 
 
-class Epoch(api.Epoch):
-    def __init__(self, experiment, epoch):
-        super().__init__(experiment, epoch)
+class Task(api.Task):
+
+    def __init__(self, epoch, name):
+        super().__init__(epoch, name)
         self.progress_bar = None
 
     def begin(self):
         if self.progress_bar is not None:
             self.progress_bar.close()
-            self.progress_bar = None
+        if self.name:
+            print(f'{self.name}')
         self.progress_bar = ProgressBar()
 
-    def progress(self, completed, total, info=None):
-        if self.progress is None:
-            self.progress_bar = ProgressBar()
-        prefix = f'{self.epoch:03d}: '
+    def progress(self, completed, total, info):
+        prefix = f'{self.epoch.epoch:03d}: '
         suffix = f'[{completed}/{total}]'
         if info:
             suffix = ' ' + info
@@ -31,6 +31,13 @@ class Epoch(api.Epoch):
     def end(self):
         self.progress_bar.close()
         self.progress_bar = None
+
+
+class Epoch(api.Epoch):
+    task_type = Task
+
+    def __init__(self, experiment, epoch):
+        super().__init__(experiment, epoch)
 
 
 class Experiment(api.Experiment):
