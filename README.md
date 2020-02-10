@@ -5,7 +5,7 @@ Monitor and track metrics and progress when training deep learning models.
 ## Installation
 
 ```bash
-$ pip install https://github.com/kevinmcguinness/traintrack
+$ pip install git+https://github.com/kevinmcguinness/traintrack
 ```
 
 This will install the `traintrack` package and the `trackserver` command line tool.
