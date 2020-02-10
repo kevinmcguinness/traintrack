@@ -28,3 +28,8 @@ trackers:
   - type: sqlite
     config:
       database: db.sqlite
+
+  - type: pandas
+    config:
+      path: logs
+      format: excel

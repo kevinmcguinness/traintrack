@@ -76,7 +76,7 @@ Monitor experiment progress, metrics, images, etc., using tensorboard (uses `pyt
 trackers:
   - type: tensorboard
     config:
-      log_dir: ''
+      log_dir: ''  # if unspecified, defaults to runs
       comment: ''
       max_queue: 10
       flush_secs: 120
@@ -92,7 +92,7 @@ trackers:
   - type: logfile
     config:
       logdir: logs
-      suffix: .log
+      suffix: .log  # filename suffix
 ```
 
 ### slack
@@ -117,7 +117,21 @@ Save metrics and hyperparameters to a sqlite database.
 trackers:
   - type: sqlite
     config:
-      database: db.sqlite
+      database: db.sqlite  # database file name
+```
+
+### pandas
+
+Collect metrics in a pandas dataframe and save the results to the disk after
+each epoch.
+
+
+```yaml
+trackers:
+  - type: pandas
+    config:
+      path: logs  # where to save the dataframe
+      format: excel  # format, one of: excel|csv|pickle|strata|hdf|json
 ```
 
 ### custom
@@ -128,8 +142,8 @@ A custom user defined tracker available somewhere on the Python package/module s
 trackers:
   - type: custom
     config:
-      classname: CustomClassName
-      modulename: your.package
+      classname: CustomClassName  # class name of the custom tracker
+      modulename: your.package  # module name containing the above class
 ```
 
 Any additional config key-value pairs will be passed as `kwargs` to the custom tracker's constructor.

@@ -24,7 +24,8 @@ REQUIRED = [
     'Click',
     'slackclient',
     'loguru',
-    'pyyaml'
+    'pyyaml',
+    'pandas'
 ]
 
 ENTRY_POINTS = """

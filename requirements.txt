@@ -6,3 +6,4 @@ click
 slackclient
 loguru
 pyyaml
+pandas

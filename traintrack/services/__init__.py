@@ -5,6 +5,7 @@ from .console import ConsoleTracker
 from .slack import SlackTracker
 from .logfile import LogfileTracker
 from .progress import ProgressTracker
+from .dataframe import DataFrameTracker
 from importlib import import_module
 
 
@@ -15,7 +16,8 @@ trackers = {
     'console': ConsoleTracker,
     'slack': SlackTracker,
     'logfile': LogfileTracker,
-    'progress': ProgressTracker
+    'progress': ProgressTracker,
+    'pandas': DataFrameTracker,
 }
 
 

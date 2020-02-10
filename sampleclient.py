@@ -20,7 +20,7 @@ def main():
         tracker.begin_task('train')
         for i in range(100):
             tracker.progress(i+1, 100)
-            time.sleep(0.025)
+            time.sleep(0.01)
         tracker.end_task()
         tracker.metric('loss/train', loss_train)
 
@@ -28,7 +28,7 @@ def main():
         tracker.begin_task('validate')
         for i in range(5):
             tracker.progress(i+1, 5)
-            time.sleep(0.1)
+            time.sleep(0.01)
         tracker.end_task()
         tracker.metric('loss/valid', loss_valid)
         tracker.metric('acc/valid', acc_valid)
