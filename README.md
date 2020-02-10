@@ -47,28 +47,89 @@ for epoch in range(1, 11):
 
 ## Available trackers
 
+The following trackers come build in.
 
 ### console
 
 Print metrics to the console at the end of each epoch.
 
+```yaml
+trackers:
+  - type: console
+```
+
 ### progress
 
 Show a console based progress bar that can be use to track, for example, how many batches have been processed in this epoch.
+
+```yaml
+trackers:
+  - type: progress
+```
 
 ### tensorboard
 
 Monitor experiment progress, metrics, images, etc., using tensorboard (uses `pytorch.utils.tensorboard`).
 
+
+```yaml
+trackers:
+  - type: tensorboard
+    config:
+      log_dir: ''
+      comment: ''
+      max_queue: 10
+      flush_secs: 120
+      filename_suffix: ''
+```
+
 ### logfile
 
 Write messages and metrics to a plain text log file.
+
+```yaml
+trackers:
+  - type: logfile
+    config:
+      logdir: logs
+      suffix: .log
+```
 
 ### slack
 
 Send log messages and metrics to a slack channel.
 
+```yaml
+trackers:
+  - type: slack
+    config:
+      token: YOUR-SLACK-API-TOKEN-HERE
+      channel: '#your-channel-here'
+```
+
+You can alternatively leave the token unspecified in the config file and set the `SLACK_API_TOKEN` environmental variable to your slack API token.
+
 ### sqlite
 
 Save metrics and hyperparameters to a sqlite database.
 
+```yaml
+trackers:
+  - type: slack
+    config:
+      database: db.sqlite
+```
+
+### custom
+
+A custom user defined tracker available somewhere on the Python package/module search path.
+
+```yaml
+trackers:
+  - type: custom
+    config:
+      classname: CustomClassName
+      modulename: your.package
+```
+
+Any additional config key-value pairs will be passed as `kwargs` to the custom tracker's constructor.
