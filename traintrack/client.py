@@ -42,13 +42,16 @@ class ExperimentTracker(object):
 
     def __init__(self, experiment_id=None, host='0.0.0.0', port=4242,
                  first_epoch=1, default_log_level='INFO', async_=False):
-        self.client = zerorpc.Client(f'tcp://{host}:{port}')
+        self.client = self.create_server_interface(host, port)
         self.experiment_id = experiment_id or make_experiment_id()
         self.epoch = first_epoch - 1
         self.default_log_level = default_log_level
 
         # need to work around the fact that async is a keyword in Python 3.7
         self.rpc_kwargs = {'async': async_}
+
+    def create_server_interface(self, host, port):
+        return zerorpc.Client(f'tcp://{host}:{port}')
 
     def begin_epoch(self, epoch=None):
         """

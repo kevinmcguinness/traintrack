@@ -3,8 +3,51 @@
 from traintrack.server import TrackerServer
 from traintrack.services.debug import DebugTracker
 from traintrack.services.progress import ProgressTracker
+from traintrack.client import ExperimentTracker
 
 import time
+
+
+class DirectClient(ExperimentTracker):
+
+    def __init__(self, trackers, **kwargs):
+        self.trackers = trackers
+        super().__init__(**kwargs)
+        self.rpc_kwargs = {}
+
+    def create_server_interface(self, host, port):
+        server = TrackerServer()
+        for tracker in self.trackers:
+            server.register_tracker(tracker)
+        return server.service
+
+
+def test_server2():
+    service = DirectClient(
+        trackers=[DebugTracker()],
+        experiment_id='DebugExperiment')
+
+    service.begin_epoch()
+
+    # exercise logging
+    service.log('log message', level='INFO')
+
+    # exercise experiment metadata
+    service.description('Test client')
+    service.parameter('lr', 0.01)
+    service.parameter('gg', 0)
+
+    # exercise progress
+    service.begin_epoch()
+    service.begin_task('train')
+    for i in range(5):
+        service.progress(i+1, 5)
+    service.end_task()
+
+    # exercise metrics
+    service.metric('a/b', 1.0)
+    service.metric('c/d', -1.0)
+    service.end_epoch()
 
 
 def test_server():
