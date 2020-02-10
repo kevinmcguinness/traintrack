@@ -10,7 +10,61 @@ import os
 import io
 
 
+class SlackProgressBar(object):
+    def __init__(self, name, client, channel, width=10):
+        self.name = name
+        self.client = client
+        self.channel = channel
+        self.channel_id = None
+        self.msg_ts = None
+        self.width = width
+        self.fill_block = chr(11035)
+        self.empty_block = chr(11036)
+
+    def update(self, completed, total, info):
+        if completed > total:
+            completed = total
+        proportion = completed / total
+        percent = proportion * 100
+        n = round(proportion * self.width)
+        bar = self.fill_block * n + self.empty_block * (self.width - n)
+        status = f'{self.name}\n{bar} {percent:.0f}%'
+        if info:
+            status = status + '\n{info}'
+        if self.msg_ts is not None:
+            self.client.chat_update(
+                channel=self.channel_id,
+                ts=self.msg_ts,
+                text=status)
+        else:
+            res = self.client.chat_postMessage(
+                channel=self.channel,
+                text=status)
+            self.msg_ts = res['ts']
+            self.channel_id = res['channel']
+
+
+class Task(api.Task):
+
+    def __init__(self, epoch, name):
+        super().__init__(epoch, name)
+
+    def begin(self):
+        self.progress_bar = SlackProgressBar(
+            self.name,
+            self.epoch.tracker.client,
+            self.epoch.tracker.channel)
+
+    def progress(self, completed, total, info):
+        self.progress_bar.update(completed, total, info)
+
+    def end(self):
+        self.progress_bar = None
+
+
 class Epoch(api.Epoch):
+    task_type = Task
+
     def __init__(self, experiment, epoch):
         super().__init__(experiment, epoch)
         self.metrics = {}
@@ -73,6 +127,7 @@ class SlackTracker(api.ExperimentTracker):
             token = os.environ.get('SLACK_API_TOKEN', None)
             if token is None:
                 raise OSError('Set SLACK_API_TOKEN environment variable')
+        print(token)
         self.client = slack.WebClient(token=token)
         self.channel = channel
 

@@ -22,8 +22,8 @@ trackers:
 
   - type: slack
     config:
-      token: 'xxx'
-      channel: '#channel'
+      token: null
+      channel: '#nn_training'
 
   - type: sqlite
     config:
