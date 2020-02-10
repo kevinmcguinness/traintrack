@@ -30,7 +30,7 @@ class SlackProgressBar(object):
         bar = self.fill_block * n + self.empty_block * (self.width - n)
         status = f'{self.name}\n{bar} {percent:.0f}%'
         if info:
-            status = status + '\n{info}'
+            status = status + f'\n{info}'
         if self.msg_ts is not None:
             self.client.chat_update(
                 channel=self.channel_id,
