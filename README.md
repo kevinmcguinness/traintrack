@@ -115,7 +115,7 @@ Save metrics and hyperparameters to a sqlite database.
 
 ```yaml
 trackers:
-  - type: slack
+  - type: sqlite
     config:
       database: db.sqlite
 ```
