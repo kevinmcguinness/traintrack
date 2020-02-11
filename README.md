@@ -105,6 +105,8 @@ trackers:
     config:
       token: YOUR-SLACK-API-TOKEN-HERE
       channel: '#your-channel-here'
+      progressbar: false  # enable or disable a task progress bar
+      loglevel: 'INFO'  # logging level of messages to send to slack
 ```
 
 You can alternatively leave the token unspecified in the config file and set the `SLACK_API_TOKEN` environmental variable to your slack API token.

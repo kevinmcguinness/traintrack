@@ -69,6 +69,8 @@ class Epoch(api.Epoch):
         super().__init__(experiment, epoch)
         self.metrics = {}
         self.tracker = experiment.tracker
+        if not experiment.tracker.show_progressbar:
+            self.task_type = api.Task
 
     def begin(self):
         pass
@@ -104,8 +106,9 @@ class Experiment(api.Experiment):
         self.tracker.post(f'parameter {name} {value}')
 
     def log(self, level, text):
-        emoji = log_level_emojis[level]
-        self.tracker.post(f'{emoji} {text}')
+        if log_levels.index(level) <= self.tracker.loglevel:
+            emoji = log_level_emojis[level]
+            self.tracker.post(f'{emoji} {text}')
 
 
 log_level_emojis = defaultdict(lambda: ':white_circle:', {
@@ -116,11 +119,15 @@ log_level_emojis = defaultdict(lambda: ':white_circle:', {
     'DEBUG': ':white_circle:'
 })
 
+log_levels = ['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG']
+
 
 class SlackTracker(api.ExperimentTracker):
     experiment_type = Experiment
 
-    def __init__(self, token=None, channel=None):
+    def __init__(
+            self, token=None, channel=None, progressbar=False,
+            loglevel='INFO'):
         super().__init__()
         if not token:
             # try get token from environment
@@ -130,6 +137,8 @@ class SlackTracker(api.ExperimentTracker):
         print(token)
         self.client = slack.WebClient(token=token)
         self.channel = channel
+        self.show_progressbar = progressbar
+        self.loglevel = log_levels.index(loglevel)
 
     def post(self, text):
         self.client.chat_postMessage(

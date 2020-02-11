@@ -24,6 +24,8 @@ trackers:
     config:
       token: null
       channel: '#nn_training'
+      progressbar: false
+      loglevel: INFO
 
   - type: sqlite
     config:
