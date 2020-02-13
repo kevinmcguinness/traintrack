@@ -2,6 +2,14 @@
 
 Monitor and track metrics and progress when training deep learning models.
 
+TrainTrack runs as a ZeroRPC server that delegates tracking events, such as
+reporting of progress and metrics, to various configured services. Built-in
+services include a service that sends tracking events to tensorboard, one that
+sends metrics and messages to a slack channel (and is capable of rendering
+a basic progress bar in the channel), a console progress bar, and trackers
+that send events to log files. A full list of built-in tracker services appears
+below.
+
 ## Installation
 
 ```bash
@@ -47,7 +55,7 @@ for epoch in range(1, 11):
 
 ## Available trackers
 
-The following trackers come build in.
+The following trackers come built-in.
 
 ### console
 
