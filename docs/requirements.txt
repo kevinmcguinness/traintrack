@@ -1,9 +1,6 @@
 zerorpc
-torch
-numpy
 Pillow
 click
 slackclient
 loguru
 pyyaml
-pandas

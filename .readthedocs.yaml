@@ -1,0 +1,2 @@
+requirements_file: doc/requirements.txt
+python.system_packages: true
