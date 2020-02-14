@@ -1,8 +1,12 @@
+.. _trackers:
+
 Tracker services
 ================
 
 
 The following trackers come built-in.
+
+.. _console:
 
 console
 -------
@@ -15,6 +19,8 @@ Print metrics to the console at the end of each epoch.
     - type: console
 
 
+.. _progress:
+
 progress
 --------
 
@@ -26,6 +32,8 @@ many batches have been processed in this epoch.
     trackers:
     - type: progress
 
+
+.. _tensorboard:
 
 tensorboard
 -----------
@@ -46,6 +54,8 @@ Monitor experiment progress, metrics, images, etc., using tensorboard
         filename_suffix: ''
 
 
+.. _logfile:
+
 logfile
 -------
 
@@ -59,6 +69,8 @@ Write messages and metrics to a plain text log file.
         logdir: logs
         suffix: .log  # filename suffix
 
+
+.. _slack:
 
 slack
 -----
@@ -79,6 +91,9 @@ Send log messages and metrics to a slack channel.
 You can alternatively leave the token unspecified in the config file and set
 the `SLACK_API_TOKEN` environmental variable to your slack API token.
 
+
+.. _sqlite:
+
 sqlite
 ------
 
@@ -91,6 +106,8 @@ Save metrics and hyperparameters to a sqlite database.
         config:
         database: db.sqlite  # database file name
 
+
+.. _pandas:
 
 pandas
 ------
@@ -107,6 +124,8 @@ each epoch.
         path: logs  # where to save the dataframe
         format: excel  # format, one of: excel|csv|pickle|strata|hdf|json
 
+
+.. _custom:
 
 custom
 ------

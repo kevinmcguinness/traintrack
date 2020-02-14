@@ -18,9 +18,10 @@ TrainTrack documentation
 
 .. toctree::
    :maxdepth: 2
-   :name: Available tracker services
-   :caption: Available tracker services
+   :name: Server documentation
+   :caption: Server documentation
 
+   server
    trackers
 
 
