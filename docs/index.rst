@@ -16,6 +16,12 @@ TrainTrack documentation
 
    client
 
+.. toctree::
+   :maxdepth: 2
+   :name: Available tracker services
+   :caption: Available tracker services
+
+   trackers
 
 
 Indices and tables
