@@ -1,5 +1,4 @@
 zerorpc
-torch
 numpy
 Pillow
 click
