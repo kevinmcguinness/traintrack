@@ -21,6 +21,8 @@ project = 'TrainTrack'
 copyright = '2020, Kevin McGuinness'
 author = 'Kevin McGuinness'
 
+master_doc = 'index'
+
 
 # -- General configuration ---------------------------------------------------
 
