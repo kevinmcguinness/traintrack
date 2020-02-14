@@ -1,5 +1,5 @@
 zerorpc
-pytorch>=1.1.0
+pytorch
 numpy
 Pillow
 click
