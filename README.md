@@ -10,6 +10,8 @@ a basic progress bar in the channel), a console progress bar, and trackers
 that send events to log files. A full list of built-in tracker services appears
 below.
 
+Documentation: https://traintrack.readthedocs.io/
+
 ## Installation
 
 ```bash
